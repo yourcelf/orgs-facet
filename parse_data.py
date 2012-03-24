@@ -158,10 +158,6 @@ column_maps = {
          'type': 'multi',
          'rows': ['Intention to vote', "Voting for"],
      },
-    'q0035': {
-        'question': "What is your annual household income?  (If your income is not in US Dollars, please indicate currency: (drop down if available, or write in).",
-        'type': 'choose_one_plus_other',
-    },
 }
 
 def load_data():
@@ -230,7 +226,7 @@ def load_data():
                     row[q] = list(answer)
 
     with open('questions.json', 'w') as fh:
-        json.dump(column_maps, fh)
+        json.dump(column_maps, fh, indent=4)
     with open('data.json', 'w') as fh:
         json.dump(cleaned_output_rows, fh)
 
