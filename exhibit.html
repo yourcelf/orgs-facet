@@ -22,7 +22,13 @@
     <!-- Le styles -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <script src="http://api.simile-widgets.org/exhibit/3.0.0rc1/exhibit-api.js"></script>
-    <script src="custom-view.js"></script>
+    <script src="js/jquery.js"></script>
+    <script src="load.js"></script>
+    <script>
+      $(function() {
+        loadQuestions();
+      });
+    </script>
     <style>
       body {
         padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
@@ -49,7 +55,7 @@
           <h3 class="pull-right">Add Facet:</h3>
         </span>
         <span class="span8">
-          <div class="controls" style="float:left; margin-right: 20px;"><select><option></option></select></div>
+          <div class="controls" style="float:left; margin-right: 20px;"><select id="questionBox"><option></option></select></div>
           <button class="btn btn-primary">Add</button>
         </span>
       </div>
@@ -71,7 +77,6 @@
     <script src="js/bootstrap.min.js"></script>
   </body>
 </html>
-
 
 </body>
 
