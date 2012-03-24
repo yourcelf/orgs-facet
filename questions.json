@@ -83,11 +83,6 @@
             "1930": 4
         }
     }, 
-    "q0035": {
-        "type": "choose_one_plus_other", 
-        "question": "What is your annual household income?  (If your income is not in US Dollars, please indicate currency: (drop down if available, or write in).", 
-        "choices": {}
-    }, 
     "q0019": {
         "type": "choose_any_plus_other", 
         "question": "Your gender (check all that apply)", 

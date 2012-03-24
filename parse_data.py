@@ -158,10 +158,6 @@ column_maps = {
          'type': 'multi',
          'rows': ['Intention to vote', "Voting for"],
      },
-    'q0035': {
-        'question': "What is your annual household income?  (If your income is not in US Dollars, please indicate currency: (drop down if available, or write in).",
-        'type': 'choose_one_plus_other',
-    },
 }
 
 def load_data():
