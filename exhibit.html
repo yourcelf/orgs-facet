@@ -7,16 +7,25 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link href="data-exhibit.json" type="application/json" rel="exhibit/data" />
+    <link href="schema-exhibit.json" type="application/json" rel="exhibit/data" />
     <style type=text/css>
         .timeline-event-label{
-            font-family:Verdana;
-            font-size:8pt;
-          }
+          font-family:Verdana;
+          font-size:8pt;
+        }
+        .exhibit-collectionSummaryWidget-results {
+          margin-right: auto;
+          font-size: 3em;
+          background-color: #F8F8FF;
+        }
+        .exhibit-collectionSummaryWidget-count {
+          font-size: 3em;
+        }
         .exhibit-collectionView-body {
           display:none;
         }
         .exhibit-collectionView-header-sortControls {
-          display:none;
+          display:none !important;
         }
         .exhibit-action {
           display:none;
@@ -46,8 +55,11 @@
   <body>
     <div class="container">
       <div class="row">
-        <div class="span12" style="text-align:center; margin-bottom: 15px;">
-          <h1>Who Occupies</h1>
+        <div class="span6" style="text-align:center; margin-bottom: 15px;">
+          <h1>Who Occupies?</h1>
+        </div>
+        <div class="span6">
+          <p>Expand the survey questions you are interested in below.<br /> Click on a value to pin it and view the counts.</p>
         </div>
       </div>
       <div class="row" style="display:none;">
