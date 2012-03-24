@@ -274,10 +274,20 @@ def load_data():
                         val = dict(zip(top, row))[col]
                         q['choices'][name][val] += 1
 
+                for name, answers in q['choices'].items():
+                    for val, count in answers.items():
+                        if count == 1:
+                            del q['choices'][name][val]
+                            q['choices'][name]['other'] = q['choices'][name].get('other', 0) + 1
+
                 for i, row in enumerate(data_rows):
                     answers = []
                     for col, name in zip(q_cols, q['rows']):
-                        answers.append(dict(zip(top, row))[col])
+                        val = dict(zip(top, row))[col]
+                        if val in q['choices'][name]:
+                            answers.append(dict(zip(top, row))[col])
+                        else:
+                            answers.append('other')
                     cleaned_output_rows[i][key] = answers
 
             q['choices'] = dict(q['choices'])

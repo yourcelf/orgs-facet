@@ -37,8 +37,9 @@ $.ajax({
 
 function renderChoice(choice, q, count) {
     var el = $("<span class='choice'></span>");
+    var choiceDisp = choice.replace(/\u0092/g, "'");
     el.append(
-        $("<a href='#' class='" + (constraints[q] == choice ? 'chosen' : '') + "'>" + (choice || "(blank)") + "</a>").click(function() {
+        $("<a href='#' class='" + (constraints[q] == choice ? 'chosen' : '') + "'>" + (choiceDisp || "(blank)") + "</a>").click(function() {
             if (constraints[q] == choice) {
                 delete constraints[q];
             } else {
@@ -128,8 +129,6 @@ function render() {
             }
         }
     }
-
-    console.log(counts);
 
     // Render facets
     $("#total .count").html(total);
