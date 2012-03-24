@@ -1,0 +1,7 @@
+{ 
+  "types": {
+        "Item": {
+            "pluralLabel": "Responses"
+        }
+    }
+}
