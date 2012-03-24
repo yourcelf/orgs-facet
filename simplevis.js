@@ -30,8 +30,12 @@ $.ajax({
 function renderChoice(choice, q, count) {
     var el = $("<span class='choice'></span>");
     el.append(
-        $("<a href='#'>" + (choice || "(blank)") + "</a>").click(function() {
-            constraints[q] = choice;
+        $("<a href='#' class='" + (constraints[q] == choice ? 'chosen' : '') + "'>" + (choice || "(blank)") + "</a>").click(function() {
+            if (constraints[q] == choice) {
+                delete constraints[q];
+            } else {
+                constraints[q] = choice;
+            }
             render();
             return false;
         }).addClass(count == 0 ? 'zero' : '')
@@ -54,6 +58,12 @@ function render() {
     for (var q in questions) {
         counts[q] = {}
         if (questions[q].widget == 'matrix') {
+//            for (var i = 0; i < questions[q].rows; i++) {
+//                var subq = questions[q].rows[i];
+//                for (var choice in questions[q].choices) {
+//                    counts[q + "::" + subq][choice] = 0;
+//                }
+//            }
         } else if ($.inArray(questions[q].widget, ['single_choice', 'multi_choice']) != -1) {
             for (var choice in questions[q].choices) {
                 counts[q][choice] = 0;
@@ -88,14 +98,37 @@ function render() {
     console.log(counts);
 
     // Render facets
-    $("#total").html(total);
+    $("#total .count").html(total);
     $("#questions").html("");
     for (var q in questions) {
         var qdiv = $("<div class='question'></div>");
         qdiv.append("<h2>" + questions[q].question + "</h2>");
         adiv = $("<div class='answers'></div>");
-        qdiv.append(adiv);
         if (questions[q].widget == 'matrix') {
+            var table = $("<table/>");
+            $.each(questions[q].rows, function(i, subq) {
+                var tr = $("<tr/>");
+                tr.append("<th>" + subq + "</th>");
+                var sortedChoices = [];
+                for (var choice in questions[q].choices[subq]) {
+                    sortedChoices.push(choice);
+                }
+                sortedChoices.sort()
+                if (sortedChoices.length > 6) {
+                    var td = $("<td/>");
+                    $.each(sortedChoices, function(j, choice) {
+                        td.append(renderChoice(choice, q, 0));
+                    });
+                } else {
+                    $.each(sortedChoices, function(j, choice) {
+                        var td = $("<td/>");
+                        td.append(renderChoice(choice, q, 0));
+                        tr.append(td);
+                    });
+                }
+                table.append(tr);
+            });
+            adiv.append(table);
         } else if ($.inArray(questions[q].widget, ['single_choice', 'multi_choice']) != -1) {
             var sortedChoices = [];
             for (var choice in questions[q].choices) {
@@ -106,6 +139,7 @@ function render() {
                 adiv.append(renderChoice(sortedChoices[i], q, counts[q][sortedChoices[i]]));
             }
         }
+        qdiv.append(adiv);
         $("#questions").append(qdiv);
     }
     $("#constraints").html("");

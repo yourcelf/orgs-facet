@@ -10,7 +10,16 @@
                 font-family: sans-serif
             }
             #total {
-                font-size: 48px;
+                color: white;
+                font-size: 40px;
+                position: fixed;
+                z-index: 1;
+                top: 0;
+                right: 0;
+                padding: 10px;
+                background: black;
+                background: rgba(0, 0, 0, 0.7);
+                max-width: 600px;
             }
             a:link, a:visited {
                 color: #09f;
@@ -18,8 +27,15 @@
             .zero, a.zero {
                 color: #aaa;
             }
+            a.chosen {
+                font-weight: bold;
+                color: #f90;
+            }
             .count {
                 margin-right: 0.5em;
+            }
+            #constraints {
+                font-size: 12px;
             }
             #constraints .q {
                 color: orange;
@@ -29,17 +45,38 @@
                 margin-right: 0.5em;
             }
             h2 {
-               font-size: 12px;
-               margin-top: 0.5em;
-               margin-bottom: 0;
-               background: #ccc;
+                font-size: 12px;
+                margin-top: 0.5em;
+                margin-bottom: 0.5em;
+                background: #ccc;
             }
+            h3 {
+                clear: both;
+                margin-top: 0;
+                margin-bottom: 0;
+                font-size: 12px;
+                float: left;
+                margin-right: 1em;
+            }
+            table {
+                width: 100%;
+            }
+            th {
+                text-align: right;
+                max-width: 200px;
+            }
+            tr {
+                border: 1px solid red;
+            }
+
         </style>
     </head>
     <body>
         <h1>Occupy Research General Survey: facet browser</h1>
-        <div id='total'></div>
-        <div id='constraints'></div>
+        <div id='total'>
+            <span class='count'></span>matching responses
+            <div id='constraints'></div>
+        </div>
         <div id='questions'></div>
     </body>
     <script type='text/javascript' src='http://code.jquery.com/jquery-1.7.2.min.js'></script>

@@ -185,6 +185,12 @@ column_maps = {
      },
 }
 
+class SetEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, set):
+            return list(obj)
+        return json.JSONEncoder.default(self, obj)
+
 def load_data():
     with open(FILE) as fh:
         reader = csv.reader(fh)
@@ -198,9 +204,19 @@ def load_data():
             q['choices'] = defaultdict(int)
             if q['type'] in ('free', 'yes_no', 'choose_one'):
                 for i, row in enumerate(data_rows):
-                    val = dict(zip(top, row))[key]
+                    val = dict(zip(top, row))[key].lower()
                     q['choices'][val] += 1
                     cleaned_output_rows[i][key] = val
+
+                # Send to 'other' if there's only 1 response
+                for val, count in q['choices'].items():
+                    if count == 1:
+                        del q['choices'][val]
+                        q['choices']['other'] += 1
+                for row in cleaned_output_rows:
+                    if row[key] not in q['choices']:
+                        row[key] = 'other'
+
             elif q['type'] in ("choose_one", "choose_any_plus_other", "choose_one_plus_other"):
                 q_cols = [c for c in top if c.startswith(key)]
                 for q_col in q_cols:
@@ -250,7 +266,7 @@ def load_data():
                             vset.add("other")
                         cleaned_output_rows[i][key] = vset
 
-            elif q['type'] in ('matrix', 'multi'):
+            elif q['type'] == 'multi':
                 q_cols = [c for c in top if c.startswith(key)]
                 for col, name in zip(q_cols, q['rows']):
                     q['choices'][name] = defaultdict(int)
@@ -260,17 +276,26 @@ def load_data():
                         q['choices'][name][val] += 1
                         vset.add(val)
                         cleaned_output_rows[i][key] = vset
-                    q['choices'][name] = dict(q['choices'][name])
+
+            elif q['type'] == 'matrix':
+                q_cols = [c for c in top if c.startswith(key)]
+                for col, name in zip(q_cols, q['rows']):
+                    q['choices'][name] = defaultdict(int)
+                    for i, row in enumerate(data_rows):
+                        data_table = cleaned_output_rows[i].get(key, {})
+                        vset = data_table.get(name, set())
+                        val = dict(zip(top, row))[col]
+                        q['choices'][name][val] += 1
+                        vset.add(val)
+                        data_table[name] = vset
+                        cleaned_output_rows[i][key] = data_table
+
             q['choices'] = dict(q['choices'])
-        for row in cleaned_output_rows:
-            for q, answer in row.items():
-                if isinstance(answer, set):
-                    row[q] = list(answer)
 
     with open('questions.json', 'w') as fh:
-        json.dump(column_maps, fh, indent=2)
+        json.dump(column_maps, fh, indent=2, cls=SetEncoder)
     with open('data.json', 'w') as fh:
-        json.dump(cleaned_output_rows, fh, indent=2)
+        json.dump(cleaned_output_rows, fh, indent=2, cls=SetEncoder)
 
 if __name__ == "__main__":
     load_data()
