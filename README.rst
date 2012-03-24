@@ -1,0 +1,1 @@
+Building a faceted data browser for http://bit.ly/occupyhackathon , using the Occupy Research General Survey data from http://www.occupyresearch.net/2012/03/23/preliminary-findings-occupy-research-demographic-and-political-participation-survey/.
