@@ -230,7 +230,7 @@ def load_data():
                     row[q] = list(answer)
 
     with open('questions.json', 'w') as fh:
-        json.dump(column_maps, fh)
+        json.dump(column_maps, fh, indent=4)
     with open('data.json', 'w') as fh:
         json.dump(cleaned_output_rows, fh)
 
