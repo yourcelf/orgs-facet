@@ -2,12 +2,12 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Tax Credits</title>
+    <title>Who Occupies?</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link href="data-exhibit.json" type="application/json" rel="exhibit/data" />
-    <link href="schema-exhibit.json" type="application/json" rel="exhibit/data" />
+    <link href="occupy.json" type="application/json" rel="exhibit/data" />
+    <link href="occupy-schema.json" type="application/json" rel="exhibit/data" />
     <style type=text/css>
         .timeline-event-label{
           font-family:Verdana;
@@ -15,7 +15,8 @@
         }
         .exhibit-collectionSummaryWidget-results {
           margin-right: auto;
-          font-size: 3em;
+          display: block;
+          font-size: 2em;
           background-color: #F8F8FF;
         }
         .exhibit-collectionSummaryWidget-count {
@@ -34,7 +35,7 @@
 
     <!-- Le styles -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-     <script src="http://projects.csail.mit.edu/datapress/exhibit-files/exhibit-api/exhibit-api.js" type="text/javascript"></script> 
+    <script src="http://projects.csail.mit.edu/datapress/exhibit-files/exhibit-api/exhibit-api.js" type="text/javascript"></script> 
     <script src="load.js"></script>
     <script>
     </script>
@@ -55,24 +56,32 @@
   <body>
     <div class="container">
       <div class="row">
-        <div class="span6" style="text-align:center; margin-bottom: 15px;">
+        <div class="span12" style="text-align:center; margin-bottom: 15px;">
           <h1>Who Occupies?</h1>
         </div>
-        <div class="span6">
-          <p>Expand the survey questions you are interested in below.<br /> Click on a value to pin it and view the counts.</p>
-        </div>
-      </div>
-      <div class="row" style="display:none;">
-        <span class="span4">
-          <h3 class="pull-right">Add Facet:</h3>
-        </span>
-        <span class="span8">
-          <div class="controls" style="float:left; margin-right: 20px;"><select id="questionBox"><option></option></select></div>
-          <button class="btn btn-primary">Add</button>
-        </span>
       </div>
       <div class="row">
-        <div class="span12" ex:role="view"></div>
+        <div class="span6">
+          <p><b>About</b><br />This is a faceted browser for the results of the <a href="http://occupyresearch.wikispaces.com/file/view/OccupyResearch+Survey+Guide+and+Instrument.pdf">Occupy Research General Demographics and Participation Survey</a> done at the Cambridge location of the <a href="http://www.occupyresearch.net/">Occupy Data 2 Hackathon</a>. Thanks to <a href="http://tirl.org/">Charlie DeTar</a> for cleaning up the dataset. It uses the <a href="http://www.simile-widgets.org/exhibit/">Exhibit</a> framework as a facet engine, and you can find the code on <a href="https://github.com/yourcelf/orgs-facet">GitHub</a>.</p>
+        </div>
+        <div class="span6">
+          <p><b>How to use</b><br />Expand the survey questions you are interested in and click the checkboxes to filter the data. For example, to see the reasons for participation for females, expand the <i>Gender</i> and <i>Why do you participate?</i> boxes, and then click the checkbox for <i>Female</i>. Then observe the updated counts in the <i>Why do you participate?</i> box.</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="span12"><p align="center"><i>Note 1:</i> The dataset is rather large (2MB) so allow for a while to load and responsd to facet changes</p></div>
+      </div>
+      <div class="row">
+        <div class="span12"><p align="center"><i>Note 2:</i> Several fields from the survey (political party, participation, voting habits) aren't displayed here. Help us develop a matrix-style filter widget to show them!</p></div>
+      </div>
+      <div id="totalCount" class="row" style="padding-top: 7px; padding-bottom: 7px; margin-top: 5px; margin-bottom: 5px; border-top: 2px solid #ccc; border-bottom: 2px solid #ccc;">
+        <div class="span3" style="font-size: 2em; vertical-align:center;">
+          <p class="pull-right">Matches after filtering:</p>
+        </div>
+        <div class="span9" height: 40px;>&nbsp;
+          <div ex:role="lens"></div>
+          <div class="span12" ex:role="view"></div>
+        </div>
       </div>
       <div class="row">
         <div id="facets1" class="span3">
@@ -84,7 +93,6 @@
           <div ex:role="facet" ex:sortMode="count" ex:collapsible="true" ex:collapsed="true" ex:expression=".q0023" ex:facetlabel="Marital status"></div>
           <div ex:role="facet" ex:sortMode="count" ex:collapsible="true" ex:collapsed="true" ex:expression=".q0020" ex:facetlabel="Sexual identity"></div>
           <div ex:role="facet" ex:sortMode="count" ex:collapsible="true" ex:collapsed="true" ex:expression=".q0025" ex:facetlabel="Do you identify as:"></div>
-          <div ex:role="facet" ex:sortMode="count" ex:collapsible="true" ex:collapsed="true" ex:expression=".q0024" ex:facetlabel="How many people do you support with your income?"></div>
           <div ex:role="facet" ex:sortMode="count" ex:collapsible="true" ex:collapsed="true" ex:expression=".q0022" ex:facetlabel="Your housing status?What best describes your present housing status?"></div>
           <div ex:role="facet" ex:sortMode="count" ex:collapsible="true" ex:collapsed="true" ex:expression=".q0026" ex:facetlabel="Do you live in the US?  If you are living elsewhere temporarily, select Yes."></div>
           <div ex:role="facet" ex:sortMode="count" ex:collapsible="true" ex:collapsed="true" ex:expression=".q0021" ex:facetlabel="What best describes your employment status during the last month?  (check all that apply)"></div> 
@@ -94,19 +102,21 @@
           <div ex:role="facet" ex:sortMode="count" ex:collapsible="true" ex:collapsed="true" ex:expression=".q0008" ex:facetlabel="Have you ever been to an Occupy camp?"></div>
           <div ex:role="facet" ex:sortMode="count" ex:collapsible="true" ex:collapsed="true" ex:expression=".q0010" ex:facetlabel="In your visits to the Occupy camp, have you:"></div>
           <div ex:role="facet" ex:sortMode="count" ex:collapsible="true" ex:collapsed="true" ex:expression=".q0009" ex:facetlabel="How frequently you have been to a camp?"></div>
-          <div ex:role="facet" ex:sortMode="count" ex:collapsible="true" ex:collapsed="true" ex:expression=".q0013" ex:facetlabel="Do you participate in..."></div>
-          <div ex:role="facet" ex:sortMode="count" ex:collapsible="true" ex:collapsed="true" ex:expression=".q0011" ex:facetlabel="Have you participated in..."></div>
+<!--
+<div ex:sortMode="count" ex:collapsible="true" ex:collapsed="true" ex:expression=".q0013" ex:facetlabel="Do you participate in..."></div>
+<div ex:sortMode="count" ex:collapsible="true" ex:collapsed="true" ex:expression=".q0014" ex:facetlabel="What forms of political and social action have you taken?"></div>
+<div ex:sortMode="count" ex:collapsible="true" ex:collapsed="true" ex:expression=".q0011" ex:facetlabel="Have you participated in..."></div>
+<div ex:sortMode="count" ex:collapsible="true" ex:collapsed="true" ex:expression=".q0031" ex:facetlabel="Which political party do you identify with most closely?"></div>
+<div ex:sortMode="count" ex:collapsible="true" ex:collapsed="true" ex:expression=".q0033" ex:facetlabel="Do you plan to vote in your next nationwide election?"></div>
+<div ex:sortMode="count" ex:collapsible="true" ex:collapsed="true" ex:expression=".q0032" ex:facetlabel="Did you vote in your most recent nationwide election?"></div>
+<div ex:sortMode="count" ex:collapsible="true" ex:collapsed="true" ex:expression=".q0024" ex:facetlabel="How many people do you support with your income?"></div>
+-->
           <div ex:role="facet" ex:sortMode="count" ex:collapsible="true" ex:collapsed="true" ex:expression=".q0012" ex:facetlabel="Would you consider the Occupy movement to be the first movement you have participated in?"></div>
-          <div ex:role="facet" ex:sortMode="count" ex:collapsible="true" ex:collapsed="true" ex:expression=".q0032" ex:facetlabel="Did you vote in your most recent nationwide election?"></div>
-          <div ex:role="facet" ex:sortMode="count" ex:collapsible="true" ex:collapsed="true" ex:expression=".q0033" ex:facetlabel="Do you plan to vote in your next nationwide election?"></div>
-          <div ex:role="facet" ex:sortMode="count" ex:collapsible="true" ex:collapsed="true" ex:expression=".q0031" ex:facetlabel="Which political party do you identify with most closely?"></div>
         </div>
         <div class="span4">
           <h3>Motivation</h3>
           <div ex:role="facet" ex:sortMode="count" ex:collapsible="true" ex:collapsed="true" ex:expression=".q0016" ex:facetlabel="Why do you participate?"></div>
           <div ex:role="facet" ex:sortMode="count" ex:collapsible="true" ex:collapsed="true" ex:expression=".q0017" ex:facetlabel="Why do you not participate?"></div>
-          <div ex:role="facet" ex:sortMode="count" ex:collapsible="true" ex:collapsed="true" ex:expression=".q0015" ex:facetlabel="How do you get Occupy news?"></div>
-          <div ex:role="facet" ex:sortMode="count" ex:collapsible="true" ex:collapsed="true" ex:expression=".q0014" ex:facetlabel="What forms of political and social action have you taken?"></div>
           <div ex:role="facet" ex:sortMode="count" ex:collapsible="true" ex:collapsed="true" ex:expression=".q0007" ex:facetlabel="How did you find this survey?"></div>
         </div>
       </div>
