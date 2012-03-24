@@ -8,10 +8,38 @@ function refreshQuestionBox() {
   }
 }
 
-function loadQuestions() {
+function loadExhibit() {
+  $("head").append("<script src=\"http://simile-widgets.org/exhibit/api/exhibit-api.js\"></script>");
+}
+
+function htmlForFacet(qId) {
+  var html = "<div ex:role=\"facet\" ex:expression=\"." + qId + "\" ex:facetLabel=\"" + window.questions[qId].question + "\"></div>";
+  return html;
+}
+
+function addQuestion(qId) {
+  if (
+      (typeof window.questions[qId]["added"] == "undefined") ||
+      (window.questions[qId] == false)) {
+    window.questions[qId]["added"] = true;
+    $("#facets1").append(htmlForFacet(qId))  
+  }
+}
+
+function createFacets() {
+  for (var qId in window.questions) {
+    addQuestion(qId);
+  }
+}
+
+function startUp() {
   $.getJSON("questions.json", function(questions) {
     window.questions = questions;
-    refreshQuestionBox();
+    //refreshQuestionBox();
+    createFacets();
+    loadExhibit();
+     
   });
 }
+
 
