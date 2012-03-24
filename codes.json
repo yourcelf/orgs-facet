@@ -1,0 +1,535 @@
+coes = {
+    "q0001": {
+        "question": "Is this survey being conducted in a camp or did you follow a link online?",
+        "values": {
+            1: "Completed the survey in a camp",
+            2: "Followed a link online",
+            999: "No Answer"
+        }
+    },
+    "q0002": {
+        "question": "Surveyor's name",
+        "values": {
+                "Andrew McMillan":   "Andrew McMillan",
+                "Bob Harry":         "Bob Harry",
+                "Brett Dykes":       "Brett Dykes",
+                "Bruce Russell":     "Bruce Russell",
+                "Dr. Ragan":         "Dr. Ragan",
+                "Johnny B. Goode":   "Johnny B. Goode",
+                "jon":               "jon",
+                "Judy Thomas":       "Judy Thomas",
+                "Judy Thomas Thomas":"Judy Thomas Thomas",
+                "Len":               "Len",
+                "wilfred baca":      "wilfred baca"
+        }
+    },
+    "q0007": {
+        "question": "Where did you find the link to this survey?",
+        "values": {
+            1: "OccupyTogether.org",
+            2: "Occupyresearch.net",
+            3: "Facebook",
+            4: "Twitter",
+            5: "From a personal contact",
+            999: "No Answer"
+        }
+    },
+    "q0008": {
+        "question": "Have you ever been to an Occupy camp?",
+        "values": {
+            1: "Yes",
+            2: "No",
+            999: "No Answer"
+        }
+    },
+    "q0009": {
+        "question": "Please describe how frequently you have been to a camp.",
+        "values": {
+            1: "I live in the camp",
+            2: "I've been many times",
+            3: "I've been a few times",
+            4: "I've been once",
+            999: "No Answer",
+            9999: "Not applicable"
+        }
+    },
+    "q0010": {
+        "question": "In your visits to the Occupy camp, you have:",
+        "options": {
+            "0001": "Slept in an Occupy camp",
+            "0002": "Attended a General Assembly",
+            "0003": "Taken part in a Working Group",
+            "0004": "Volunteered to provide food or services to people in the camp",
+            "0005": "Participated in workshops or events hosted in the camp",
+            "0006": "Marched in a protest",
+            "0007": "Organized an event or action",
+            "0008": "Got arrested",
+            "0009": "Other"
+        }
+    },
+    "q0011": {
+        "question": "Have you participated in any of the following activities related to the Occupy movement?  Select all that apply.",
+        "options": {
+            "0001": "No, I have not participated in any activity reltaed to the Occupy movement."
+            "0002": "Had a face to face discussion about Occupy",
+            "0003": "Posted about Occupy via Facebook, Twitter, or other social networks.",
+            "0004": "Wrote a blog post about Occupy",
+            "0005": "Made a video about Occupy",
+            "0006": "Donated money, food, or needed goods to a camp",
+            "0007": "Signed a petition",
+            "0008": "Marched in a protest",
+            "0009": "Organized an event or action",
+            "0010": "Got arrested",
+            "0011": "Made phone calls to elected officials",
+            "0012": "Other"
+        }
+    },
+    "q0012": {
+        "question": "Would you consider the Occupy movement to be the first movement you have participated in?",
+        "values": {
+            1: "Yes",
+            2: "No",
+            3: "I don't consider myself a participant",
+            999: "No Answer"
+        }
+    },
+    "q0013_0001": {
+        "question": "political party?",
+        "values": {
+            1: "belong, actively participate",
+            2: "belong, but don't actively participate",
+            3: "used to belong, do not any more",
+            4: "have never belonged",
+            5: "can't choose/don't know",
+            999: "No Answer"
+        }
+    },
+    "q0013_0002": {
+        "question": "Labor union?",
+        "values": {
+            1: "belong, actively participate",
+            2: "belong, but don't actively participate",
+            3: "used to belong, do not any more",
+            4: "have never belonged",
+            5: "can't choose/don't know",
+            999: "No Answer"
+        }
+    },
+    "q0013_0003": {
+        "question": "Non-profit Organization?",
+        "values": {
+            1: "belong, actively participate",
+            2: "belong, but don't actively participate",
+            3: "used to belong, do not any more",
+            4: "have never belonged",
+            5: "can't choose/don't know",
+            999: "No Answer"
+        }
+    },
+    "q0013_0004": {
+        "question": "Church or Religious Organization",
+        "values": {
+            1: "belong, actively participate",
+            2: "belong, but don't actively participate",
+            3: "used to belong, do not any more",
+            4: "have never belonged",
+            5: "can't choose/don't know",
+            999: "No Answer"
+        }
+    },
+    "q0013_0005": {
+        "question": "Non-Governmental Organization",
+        "values": {
+            1: "belong, actively participate",
+            2: "belong, but don't actively participate",
+            3: "used to belong, do not any more",
+            4: "have never belonged",
+            5: "can't choose/don't know",
+            999: "No Answer"
+        }
+    },
+    "q0013_0006": {
+        "question": "Affinity Group",
+        "values": {
+            1: "belong, actively participate",
+            2: "belong, but don't actively participate",
+            3: "used to belong, do not any more",
+            4: "have never belonged",
+            5: "can't choose/don't know",
+            999: "No Answer"
+        }
+    },
+    "q0013_0007": {
+        "question": "Social justice organization",
+        "values": {
+            1: "belong, actively participate",
+            2: "belong, but don't actively participate",
+            3: "used to belong, do not any more",
+            4: "have never belonged",
+            5: "can't choose/don't know",
+            999: "No Answer"
+        }
+    },
+    "q0013_0008": {
+        "question": "Worker Center",
+        "values": {
+            1: "belong, actively participate",
+            2: "belong, but don't actively participate",
+            3: "used to belong, do not any more",
+            4: "have never belonged",
+            5: "can't choose/don't know",
+            999: "No Answer"
+        }
+    },
+    "q0013_0009": {
+        "question": "Cultural Groups",
+        "values": {
+            1: "belong, actively participate",
+            2: "belong, but don't actively participate",
+            3: "used to belong, do not any more",
+            4: "have never belonged",
+            5: "can't choose/don't know",
+            999: "No Answer"
+        }
+    },
+    "q0013_0010": {
+        "question": "Sports groups or teams",
+        "values": {
+            1: "belong, actively participate",
+            2: "belong, but don't actively participate",
+            3: "used to belong, do not any more",
+            4: "have never belonged",
+            5: "can't choose/don't know",
+            999: "No Answer"
+        }
+    },
+    "q0013_0011": {
+        "question": "Another voluntary association",
+        "values": {
+            1: "belong, actively participate",
+            2: "belong, but don't actively participate",
+            3: "used to belong, do not any more",
+            4: "have never belonged",
+            5: "can't choose/don't know",
+            999: "No Answer"
+        }
+    },
+    "q0013_0012": {
+        "question": "Professional Association",
+        "values": {
+            1: "belong, actively participate",
+            2: "belong, but don't actively participate",
+            3: "used to belong, do not any more",
+            4: "have never belonged",
+            5: "can't choose/don't know",
+            999: "No Answer"
+        }
+    },
+    "q0013_0013": {
+        "question": "Business Association",
+        "values": {
+            1: "belong, actively participate",
+            2: "belong, but don't actively participate",
+            3: "used to belong, do not any more",
+            4: "have never belonged",
+            5: "can't choose/don't know",
+            999: "No Answer"
+        }
+    },
+    "q0014_0001": {
+        "question": "Signed a petition",
+        "values": {
+            1: "In the past year",
+            2: "Over a year ago",
+            3: "Not done it but may",
+            4: "Would never do it",
+            5: "Can't choose/don't know",
+            999: "No answer"
+        }
+    },
+    "q0014_0002": {
+        "question": "Boycotted, or deliberately bought, certain products for political, ethical, or environmental reasons",
+        "values": {
+            1: "In the past year",
+            2: "Over a year ago",
+            3: "Not done it but may",
+            4: "Would never do it",
+            5: "Can't choose/don't know",
+            999: "No answer"
+        }
+    },
+    "q0014_0003": {
+        "question": "Took part in a demonstration",
+        "values": {
+            1: "In the past year",
+            2: "Over a year ago",
+            3: "Not done it but may",
+            4: "Would never do it",
+            5: "Can't choose/don't know",
+            999: "No answer"
+        }
+    },
+    "q0014_0004": {
+        "question": "Attended a political meeting or rally",
+        "values": {
+            1: "In the past year",
+            2: "Over a year ago",
+            3: "Not done it but may",
+            4: "Would never do it",
+            5: "Can't choose/don't know",
+            999: "No answer"
+        }
+    },
+    "q0014_0005": {
+        "question": "Contacted, or attempted to contact, a politician or a civil servant to express your views",
+        "values": {
+            1: "In the past year",
+            2: "Over a year ago",
+            3: "Not done it but may",
+            4: "Would never do it",
+            5: "Can't choose/don't know",
+            999: "No answer"
+        }
+    },
+    "q0014_0006": {
+        "question": "Dontated money or raised funds for a social or political activity",
+        "values": {
+            1: "In the past year",
+            2: "Over a year ago",
+            3: "Not done it but may",
+            4: "Would never do it",
+            5: "Can't choose/don't know",
+            999: "No answer"
+        }
+    },
+    "q0014_0007": {
+        "question": "Contacted or appeared in the media to express your views",
+        "values": {
+            1: "In the past year",
+            2: "Over a year ago",
+            3: "Not done it but may",
+            4: "Would never do it",
+            5: "Can't choose/don't know",
+            999: "No answer"
+        }
+    },
+    "q0014_0008": {
+        "question": "Joined an Internet political forum or discussion group",
+        "values": {
+            1: "In the past year",
+            2: "Over a year ago",
+            3: "Not done it but may",
+            4: "Would never do it",
+            5: "Can't choose/don't know",
+            999: "No answer"
+        }
+    },
+    "q0015_0001": {
+        "question": "Word of mouth",
+        "values": {
+            1: "In the past 24 hours",
+            2: "In the past week",
+            3: "In the past month",
+            4: "More than a month ago",
+            5: "Never",
+            999: "No answer"
+        }
+    },
+    "q0015_0002": {
+        "question": "Discussions at Occupy camps or face to face groups",
+        "values": {
+            1: "In the past 24 hours",
+            2: "In the past week",
+            3: "In the past month",
+            4: "More than a month ago",
+            5: "Never",
+            999: "No answer"
+        }
+    },
+    "q0015_0003": {
+        "question": "Email",
+        "values": {
+            1: "In the past 24 hours",
+            2: "In the past week",
+            3: "In the past month",
+            4: "More than a month ago",
+            5: "Never",
+            999: "No answer"
+        }
+    },
+    "q0015_0004": {
+        "question": "Twitter",
+        "values": {
+            1: "In the past 24 hours",
+            2: "In the past week",
+            3: "In the past month",
+            4: "More than a month ago",
+            5: "Never",
+            999: "No answer"
+        }
+    },
+    "q0015_0005": {
+        "question": "Facebook",
+        "values": {
+            1: "In the past 24 hours",
+            2: "In the past week",
+            3: "In the past month",
+            4: "More than a month ago",
+            5: "Never",
+            999: "No answer"
+        }
+    },
+    "q0015_0006": {
+        "question": "Chat rooms / IRC",
+        "values": {
+            1: "In the past 24 hours",
+            2: "In the past week",
+            3: "In the past month",
+            4: "More than a month ago",
+            5: "Never",
+            999: "No answer"
+        }
+    },
+    "q0015_0007": {
+        "question": "YouTube",
+        "values": {
+            1: "In the past 24 hours",
+            2: "In the past week",
+            3: "In the past month",
+            4: "More than a month ago",
+            5: "Never",
+            999: "No answer"
+        }
+    },
+    "q0015_0008": {
+        "question": "Tumblr",
+        "values": {
+            1: "In the past 24 hours",
+            2: "In the past week",
+            3: "In the past month",
+            4: "More than a month ago",
+            5: "Never",
+            999: "No answer"
+        }
+    },
+    "q0015_0009": {
+        "question": "Blogs",
+        "values": {
+            1: "In the past 24 hours",
+            2: "In the past week",
+            3: "In the past month",
+            4: "More than a month ago",
+            5: "Never",
+            999: "No answer"
+        }
+    },
+    "q0015_0010": {
+        "question": "Local Newspaper",
+        "values": {
+            1: "In the past 24 hours",
+            2: "In the past week",
+            3: "In the past month",
+            4: "More than a month ago",
+            5: "Never",
+            999: "No answer"
+        }
+    },
+    "q0015_0011": {
+        "question": "National or international Newspaper",
+        "values": {
+            1: "In the past 24 hours",
+            2: "In the past week",
+            3: "In the past month",
+            4: "More than a month ago",
+            5: "Never",
+            999: "No answer"
+        }
+    },
+    "q0015_0012": {
+        "question": "Local Radio",
+        "values": {
+            1: "In the past 24 hours",
+            2: "In the past week",
+            3: "In the past month",
+            4: "More than a month ago",
+            5: "Never",
+            999: "No answer"
+        }
+    },
+    "q0015_0013": {
+        "question": "National or international Radio",
+        "values": {
+            1: "In the past 24 hours",
+            2: "In the past week",
+            3: "In the past month",
+            4: "More than a month ago",
+            5: "Never",
+            999: "No answer"
+        }
+    },
+    "q0015_0014": {
+        "question": "Local Television",
+        "values": {
+            1: "In the past 24 hours",
+            2: "In the past week",
+            3: "In the past month",
+            4: "More than a month ago",
+            5: "Never",
+            999: "No answer"
+        }
+    },
+    "q0015_0015": {
+        "question": "National or International Television",
+        "values": {
+            1: "In the past 24 hours",
+            2: "In the past week",
+            3: "In the past month",
+            4: "More than a month ago",
+            5: "Never",
+            999: "No answer"
+        }
+    },
+    "q0015_0016": {
+        "question": "Livestreaming video site",
+        "values": {
+            1: "In the past 24 hours",
+            2: "In the past week",
+            3: "In the past month",
+            4: "More than a month ago",
+            5: "Never",
+            999: "No answer"
+        }
+    },
+    "q0015_0017": {
+        "question": "Websites of the Occupy Movement",
+        "values": {
+            1: "In the past 24 hours",
+            2: "In the past week",
+            3: "In the past month",
+            4: "More than a month ago",
+            5: "Never",
+            999: "No answer"
+        }
+    },
+    "q0015_0018": {
+        "question": "Other",
+        "values": {
+            1: "In the past 24 hours",
+            2: "In the past week",
+            3: "In the past month",
+            4: "More than a month ago",
+            5: "Never",
+            999: "No answer"
+        }
+    },
+    "q0019": {
+        "question": "Your gender (check all that apply)",
+        "options": {
+            "0001": "Female",
+            "0002": "Male",
+            "0003": "Transgender",
+            "0004": "Decline to state"
+        }
+    }
+}
+
