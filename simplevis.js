@@ -5,6 +5,14 @@ $.ajax({
     type: 'GET',
     success: function(res) {
         questions = res;
+        for (var q in questions) {
+            if (questions[q].widget == 'matrix') {
+                questions[q].rev_rows = {};
+                for (var i = 0; i < questions[q].rows.length; i++) {
+                    questions[q].rev_rows[questions[q].rows[i]] = i;
+                }
+            }
+        }
         if (questions && data) {
             render();
         }
@@ -56,45 +64,71 @@ function render() {
     var counts = {};
     var total = 0;
     for (var q in questions) {
-        counts[q] = {}
         if (questions[q].widget == 'matrix') {
-//            for (var i = 0; i < questions[q].rows; i++) {
-//                var subq = questions[q].rows[i];
-//                for (var choice in questions[q].choices) {
-//                    counts[q + "::" + subq][choice] = 0;
-//                }
-//            }
+            for (var i = 0; i < questions[q].rows.length; i++) {
+                var subq = questions[q].rows[i];
+                counts[q + "::" + subq] = {};
+                for (var choice in questions[q].choices[subq]) {
+                    counts[q + "::" + subq][choice] = 0;
+                }
+            }
         } else if ($.inArray(questions[q].widget, ['single_choice', 'multi_choice']) != -1) {
+            counts[q] = {}
             for (var choice in questions[q].choices) {
                 counts[q][choice] = 0;
             }
         }
     }
+
     for (var i = 0; i < data.length; i++) {
         var row = data[i];
         var matched = true;
-        for (var q in constraints) {
+        for (var question in constraints) {
+            var parts = question.split("::");
+            var q = parts[0];
+            if (parts.length > 0) {
+                var subq = parts[1];
+            }
+
             if (questions[q].widget == 'single_choice' && row[q] != constraints[q]) {
                 matched = false;
-            } else if (questions[q].widget == 'multi_choice' && $.inArray(constraints[q], row[q]) == -1) {
-                matched = false;
+            } else if (questions[q].widget == 'multi_choice') {
+                if ($.inArray(constraints[q], row[q]) == -1) {
+                    matched = false;
+                }
+            } else if (questions[q].widget == 'matrix') {
+                if (row[q][questions[q].rev_rows[subq]] != constraints[question]) {
+                    matched = false;
+                }
             }
             if (!matched) 
                 break;
         }
         if (matched) {
             total += 1;
-            for (var q in counts) {
+            for (var question in counts) {
+                var parts = question.split("::");
+                var q = parts[0];
+                if (parts.length > 1) {
+                    var subq = parts[1];
+                }
                 if (questions[q].widget == 'single_choice') {
                     counts[q][row[q]] += 1; 
                 } else if (questions[q].widget == 'multi_choice') {
                     for (var j = 0; j < row[q].length; j++) {
                         counts[q][row[q][j]] += 1
                     }
-                } 
+                } else if (questions[q].widget == 'matrix') {
+                    // HACK XXX -- this should already have been initialized....
+                    if (counts[q + "::" + subq][ row[q][questions[q].rev_rows[subq]] ] == null) {
+                        counts[q + "::" + subq][ row[q][questions[q].rev_rows[subq]] ] = 0;
+                    }
+                    counts[q + "::" + subq][ row[q][questions[q].rev_rows[subq]] ] += 1;
+                }
             }
         }
     }
+
     console.log(counts);
 
     // Render facets
@@ -104,6 +138,9 @@ function render() {
         var qdiv = $("<div class='question'></div>");
         qdiv.append("<h2>" + questions[q].question + "</h2>");
         adiv = $("<div class='answers'></div>");
+        /*
+        * Matrix Questions
+        */
         if (questions[q].widget == 'matrix') {
             var table = $("<table/>");
             $.each(questions[q].rows, function(i, subq) {
@@ -114,21 +151,26 @@ function render() {
                     sortedChoices.push(choice);
                 }
                 sortedChoices.sort()
+                var constraint = q + "::" + subq;
                 if (sortedChoices.length > 6) {
-                    var td = $("<td/>");
+                    var td = $("<td colspan='6'></td>");
                     $.each(sortedChoices, function(j, choice) {
-                        td.append(renderChoice(choice, q, 0));
+                        td.append(renderChoice(choice, constraint, counts[constraint][choice]));
                     });
+                    tr.append(td);
                 } else {
                     $.each(sortedChoices, function(j, choice) {
                         var td = $("<td/>");
-                        td.append(renderChoice(choice, q, 0));
+                        td.append(renderChoice(choice, constraint, counts[constraint][choice]));
                         tr.append(td);
                     });
                 }
                 table.append(tr);
             });
             adiv.append(table);
+        /*
+        *  Single and multiple choice
+        */
         } else if ($.inArray(questions[q].widget, ['single_choice', 'multi_choice']) != -1) {
             var sortedChoices = [];
             for (var choice in questions[q].choices) {
@@ -143,20 +185,28 @@ function render() {
         $("#questions").append(qdiv);
     }
     $("#constraints").html("");
-    for (var q in constraints) {
-        (function(q) {
+    for (var question in constraints) {
+        (function(question) {
+            var parts = question.split("::");
+            var q = parts[0];
+            if (parts.length > 1) {
+                var subq = parts[1];
+            }
             var cdiv = $("<div class='constraint'></div>");
+            if (parts.length > 1) {
+                cdiv.append($("<span class='q'>" + questions[q].question + ": " + subq + ": </span>"));
+            } else {
+                cdiv.append($("<span class='q'>" + questions[q].question + ":</span>"));
+            }
+            cdiv.append($("<span class='a'>" + constraints[question] + "</span>"))
             cdiv.append(
-                $("<span class='q'>" + questions[q].question + ":</span>")
-            ).append($("<span class='a'>" + constraints[q] + "</span>")
-            ).append(
                 $("<a href='#'>(remove)</a>").click(function() {
-                    delete constraints[q];
+                    delete constraints[question];
                     render();
                     return false;
                 })
             );
             $("#constraints").append(cdiv);
-        })(q);
+        })(question);
     }
 }

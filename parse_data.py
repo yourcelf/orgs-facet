@@ -266,29 +266,19 @@ def load_data():
                             vset.add("other")
                         cleaned_output_rows[i][key] = vset
 
-            elif q['type'] == 'multi':
+            elif q['type'] in ('matrix', 'multi'):
                 q_cols = [c for c in top if c.startswith(key)]
                 for col, name in zip(q_cols, q['rows']):
                     q['choices'][name] = defaultdict(int)
                     for i, row in enumerate(data_rows):
-                        vset = cleaned_output_rows[i].get(key, set())
                         val = dict(zip(top, row))[col]
                         q['choices'][name][val] += 1
-                        vset.add(val)
-                        cleaned_output_rows[i][key] = vset
 
-            elif q['type'] == 'matrix':
-                q_cols = [c for c in top if c.startswith(key)]
-                for col, name in zip(q_cols, q['rows']):
-                    q['choices'][name] = defaultdict(int)
-                    for i, row in enumerate(data_rows):
-                        data_table = cleaned_output_rows[i].get(key, {})
-                        vset = data_table.get(name, set())
-                        val = dict(zip(top, row))[col]
-                        q['choices'][name][val] += 1
-                        vset.add(val)
-                        data_table[name] = vset
-                        cleaned_output_rows[i][key] = data_table
+                for i, row in enumerate(data_rows):
+                    answers = []
+                    for col, name in zip(q_cols, q['rows']):
+                        answers.append(dict(zip(top, row))[col])
+                    cleaned_output_rows[i][key] = answers
 
             q['choices'] = dict(q['choices'])
 
