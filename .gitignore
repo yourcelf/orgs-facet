@@ -2,3 +2,4 @@
 *.swp
 *.xlsx
 *.csv
+.DS_Store
